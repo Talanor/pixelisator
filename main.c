@@ -137,6 +137,7 @@ int main (int argc, char** argv)
 
     bool again = true, end = false, pause = false;
     int i = 0;
+    int divisor = 9000;
 
     while (again == true) {
 	Uint32 now = SDL_GetTicks();
@@ -147,12 +148,11 @@ int main (int argc, char** argv)
 	  			screen[coords[i][1] * image->w + coords[i][0]] =
 					pixels[coords[i][1] * image->w + coords[i][0]];
 				++i;
-			} while ((i % ((image->w * image->h) / 9000) != 0 || end == true) && i < image->w * image->h);
+			} while ((i % ((image->w * image->h) / divisor) != 0 || end == true) && i < image->w * image->h);
 		}
-
         	SDL_UpdateTexture(texture, NULL, screen, image->w * sizeof(Uint32));
 	}
-    	
+
 	SDL_Event event;
     	while (SDL_PollEvent(&event)) {
 		if (event.type == SDL_KEYDOWN) {
@@ -162,6 +162,10 @@ int main (int argc, char** argv)
 				end = true;
 			} else if (event.key.keysym.sym == SDLK_p) {
 				pause = !pause;
+			} else if (event.key.keysym.sym == SDLK_RIGHTBRACKET) {
+				divisor /= 6;
+			} else if (event.key.keysym.sym == SDLK_LEFTBRACKET) {
+				divisor *= 6;
 			}
 		}
     	}
