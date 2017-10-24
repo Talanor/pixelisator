@@ -28,6 +28,8 @@
 *.x86_64
 *.hex
 
+pixelisator
+
 # Debug files
 *.dSYM/
 *.su
